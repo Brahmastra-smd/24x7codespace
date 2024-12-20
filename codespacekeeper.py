@@ -113,12 +113,4 @@ def main():
         thread.join()
 
 if __name__ == "__main__":
-    keep_alive()
-    
-    while True:
-        try:
-            bot.polling(none_stop=True)
-        except Exception as e:
-            print(f"Error occurred: {str(e)}")
-            time.sleep(5)
-    
+       main()
