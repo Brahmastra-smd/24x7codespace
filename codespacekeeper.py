@@ -7,7 +7,21 @@ import logging
 from requests.exceptions import RequestException
 from threading import Thread
 from datetime import datetime
+from flask import Flask
 
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "I am alive"
+
+def run_http_server():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run_http_server)
+    t.start()
+    
 # Expiry date
 expiry_date = datetime(2025, 10, 25)
 
@@ -99,5 +113,12 @@ def main():
         thread.join()
 
 if __name__ == "__main__":
-    main()
+    keep_alive()
+    
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as e:
+            print(f"Error occurred: {str(e)}")
+            time.sleep(5)
     
